@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单响应式框架</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            background: #333;
+            color: white;
+            padding: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-right: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            background: #555;
+            border-radius: 4px;
+        }
+
+        /* 内容区域 */
+        .content {
+            padding: 2rem;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="#home" class="active">首页</a></li>
+            <li><a href="#about">关于</a></li>
+            <li><a href="#services">服务</a></li>
+            <li><a href="#contact">联系</a></li>
+        </ul>
+    </nav>
+
+    <!-- 内容页面 -->
+    <div class="content">
+        <div id="home" class="page active">
+            <h2>欢迎来到首页</h2>
+            <p>这是一个响应式网页示例，请尝试调整浏览器窗口大小查看效果。</p>
+        </div>
+
+        <div id="about" class="page">
+            <h2>关于我们</h2>
+            <p>我们是一家致力于提供优质网络解决方案的公司。</p>
+        </div>
+
+        <div id="services" class="page">
+            <h2>我们的服务</h2>
+            <ul>
+                <li>网站开发</li>
+                <li>移动应用开发</li>
+                <li>云计算服务</li>
+            </ul>
+        </div>
+
+        <div id="contact" class="page">
+            <h2>联系我们</h2>
+            <p>邮箱：contact@example.com</p>
+            <p>电话：+86 123-4567-8900</p>
+        </div>
+    </div>
+
+    <script>
+        // 页面切换功能
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // 移除所有active类
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.querySelectorAll('.nav-links a').forEach(a => {
+                    a.classList.remove('active');
+                });
+
+                // 添加active类
+                const target = link.getAttribute('href');
+                document.querySelector(target).classList.add('active');
+                link.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
